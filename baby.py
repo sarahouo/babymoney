@@ -8,7 +8,7 @@ from linebot.exceptions import (
 )
 from linebot.models import *
 
-app = Flask(__name__)
+baby = Flask(__name__)
 
 # 必須放上自己的Channel Access Token
 line_bot_api = LineBotApi('hkUCqCIH7OadeaYR92b/j7g1m/rtSlhUp0HRV2hwXxY2Z5wnmsmI39RVr2InQLzujiS1ozkrNSoV7bu9kAJ3JxukEJLaFZwRE0Sg1dfM/yCz/XINVjzJnBodPgQWFGfzLFXM5XolxBbUMcTVbB8P9QdB04t89/1O/w1cDnyilFU=')
@@ -19,7 +19,7 @@ line_bot_api.push_message('U75b15c083783a40fd1f2a6dc1f9b56db', TextSendMessage(t
 
 
 # 監聽所有來自 /callback 的 Post Request
-@app.route("/callback", methods=['POST'])
+@baby.route("/callback", methods=['POST'])
 def callback():
     # get X-Line-Signature header value
     signature = request.headers['X-Line-Signature']
@@ -27,7 +27,7 @@ def callback():
  
     # get request body as text
     body = request.get_data(as_text=True)
-    app.logger.info("Request body: " + body)
+    baby.logger.info("Request body: " + body)
 
     # handle webhook body
     try:
@@ -49,4 +49,4 @@ def handle_message(event):
 import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    baby.run(host='0.0.0.0', port=port)
